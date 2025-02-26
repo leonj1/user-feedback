@@ -1,5 +1,7 @@
 # User Feedback Widget
 
+![Feedback Widget Storyboard](storyboard.png)
+
 A lightweight JavaScript widget for collecting user feedback on websites and web applications. This project provides an easy-to-implement solution for gathering user opinions through star ratings, thumbs up/down reactions, and text comments.
 
 ## Purpose
