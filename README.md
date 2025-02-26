@@ -1,6 +1,15 @@
 # User Feedback Widget
 
-A lightweight JavaScript widget for collecting user feedback, supporting star ratings, thumbs up/down, and text feedback.
+A lightweight JavaScript widget for collecting user feedback on websites and web applications. This project provides an easy-to-implement solution for gathering user opinions through star ratings, thumbs up/down reactions, and text comments.
+
+## Purpose
+
+The User Feedback Widget helps developers quickly add professional-looking feedback collection mechanisms to their websites. Whether you need simple thumbs up/down reactions, detailed star ratings, or open-ended text feedback, this widget provides a consistent, customizable interface that:
+
+- Improves user engagement by providing an easy way to leave feedback
+- Helps gather actionable insights about user experience
+- Integrates seamlessly with existing websites and applications
+- Provides a consistent look and feel across different feedback types
 
 ## Features
 
@@ -35,27 +44,88 @@ import FeedbackWidget from 'user-feedback-widget';
 const FeedbackWidget = require('user-feedback-widget');
 ```
 
-## Basic Usage
+## Building from Source
 
-```html
-<script src="dist/feedback-widget.min.js"></script>
-<script>
-  const feedbackWidget = new FeedbackWidget({
-    type: 'star', // 'star', 'thumbs', or 'text'
-    targetElement: document.getElementById('feedback-container'), // Where to render the widget
-    theme: {
-      primaryColor: '#007BFF',
-      secondaryColor: '#6C757D',
-      fontFamily: 'Arial, sans-serif'
+To build the project from source:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/user-feedback-widget.git
+   cd user-feedback-widget
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Build the minified distribution:
+   ```bash
+   npm run build
+   ```
+
+This will generate the minified widget in the `dist/` directory.
+
+## Using the Widget in Your Project
+
+### Basic Implementation
+
+1. Include the widget script in your HTML:
+   ```html
+   <script src="path/to/feedback-widget.min.js"></script>
+   ```
+
+2. Create a container element where you want the widget to appear:
+   ```html
+   <div id="feedback-container"></div>
+   ```
+
+3. Initialize the widget with your preferred configuration:
+   ```javascript
+   const feedbackWidget = new FeedbackWidget({
+     type: 'star', // Choose 'star', 'thumbs', or 'text'
+     targetElement: document.getElementById('feedback-container'),
+     theme: {
+       primaryColor: '#007BFF',
+       secondaryColor: '#6C757D',
+       fontFamily: 'Arial, sans-serif'
+     },
+     onSubmit: function(data) {
+       console.log('Feedback submitted:', data);
+       // Handle the feedback data (e.g., send to your server)
+     }
+   });
+   
+   feedbackWidget.init();
+   ```
+
+### Handling Feedback Data
+
+The `onSubmit` callback receives the feedback data when a user submits their response. You can use this to:
+
+- Send the data to your server via AJAX
+- Store it in localStorage
+- Trigger other actions based on the feedback
+
+Example server submission:
+
+```javascript
+onSubmit: function(data) {
+  fetch('https://your-api.com/feedback', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
     },
-    onSubmit: function(data) {
-      console.log('Feedback submitted:', data);
-      // Send data to your server, etc.
-    }
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log('Feedback saved:', result);
+  })
+  .catch(error => {
+    console.error('Error saving feedback:', error);
   });
-  
-  feedbackWidget.init();
-</script>
+}
 ```
 
 ## Configuration Options
@@ -111,14 +181,32 @@ The feedback data passed to the `onSubmit` callback has the following format:
 
 Check out the `/examples` directory for working demonstrations of all feedback types.
 
-### Storyboard
+### Running the Storyboard
 
-We've included a custom storyboard interface to help you test and visualize different widget configurations:
+The storyboard is an interactive tool to help you visualize and customize the widgets before implementing them in your project. To run the storyboard:
 
-```bash
-# Open the storyboard in your browser
-open examples/storyboard.html
-```
+1. Make sure you have Docker installed on your system.
+
+2. Use the provided Makefile commands:
+
+   ```bash
+   # Build and run the storyboard (default port: 8080)
+   make story
+   
+   # To use a different port
+   make story PORT=3000
+   
+   # For development with live updates (mounts your local directory)
+   make story USE_VOLUME=1
+   
+   # To stop the storyboard container
+   make story-clean
+   
+   # For debugging help
+   make story-debug
+   ```
+
+3. Open your browser to `http://localhost:8080` (or your custom port) to access the storyboard.
 
 The storyboard provides:
 - Interactive controls to customize each widget's appearance
@@ -142,24 +230,6 @@ This makes it easy to experiment with different themes and configurations before
 
 - Node.js (v12+)
 - npm (v6+)
-
-### Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/user-feedback-widget.git
-cd user-feedback-widget
-
-# Install dependencies
-npm install
-```
-
-### Build
-
-```bash
-# Build minified version
-npm run build
-```
 
 ### Testing
 

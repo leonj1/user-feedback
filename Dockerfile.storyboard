@@ -1,0 +1,43 @@
+FROM nginx:alpine
+
+# Create symlink to ensure both paths work
+RUN ln -sf /usr/share/nginx/html /etc/nginx/html
+
+# Create directory structure
+WORKDIR /usr/share/nginx/html
+
+# Copy the entire project
+COPY . .
+
+# Configure nginx to properly serve the storyboard and handle paths
+RUN echo 'server { \
+    listen       80; \
+    server_name  localhost; \
+    \
+    location / { \
+        root   /usr/share/nginx/html; \
+        index  examples/storyboard.html; \
+        try_files $uri $uri/ =404; \
+    } \
+    \
+    # Redirect root to storyboard \
+    location = / { \
+        return 301 /examples/storyboard.html; \
+    } \
+    \
+    # Enable directory listing for examples directory \
+    location /examples/ { \
+        autoindex on; \
+    } \
+    \
+    error_page   500 502 503 504  /50x.html; \
+    location = /50x.html { \
+        root   /usr/share/nginx/html; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Start nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]
