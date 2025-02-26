@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Feedback Widget Storyboard</title>
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2c3e50;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: var(--font-family);
+      line-height: 1.6;
+      color: #333;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    header {
+      margin-bottom: 30px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+    }
+    
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+    
+    h2 {
+      color: var(--secondary-color);
+      margin: 25px 0 15px;
+    }
+    
+    .storyboard {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 20px;
+      margin-bottom: 40px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .controls {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-right: 1px solid #eee;
+    }
+    
+    .control-group {
+      margin-bottom: 20px;
+    }
+    
+    .control-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    .control-group input, 
+    .control-group select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .control-group input[type="color"] {
+      height: 40px;
+    }
+    
+    .preview {
+      padding: 20px;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .preview-header {
+      margin-bottom: 20px;
+    }
+    
+    .preview-container {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px dashed #ddd;
+      border-radius: 8px;
+    }
+    
+    .code-snippet {
+      margin-top: 20px;
+      background-color: #272822;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+    
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+    
+    button:hover {
+      opacity: 0.9;
+    }
+    
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+    
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    
+    .tab.active {
+      border-bottom-color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    .star-rating {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    
+    .star {
+      cursor: pointer;
+      color: #ccc;
+      transition: color 0.3s;
+      margin-right: 5px;
+    }
+    
+    .star.selected {
+      color: #f39c12;
+    }
+    
+    .thumbs-feedback {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    
+    .thumbs-up, .thumbs-down {
+      cursor: pointer;
+      margin-right: 15px;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+    
+    .thumbs-up.selected, .thumbs-down.selected {
+      opacity: 1;
+    }
+    
+    .text-feedback textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      font-family: inherit;
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: #777;
+      font-size: 14px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>User Feedback Widget Storyboard</h1>
+    <p>Interactive testing and customization of feedback widget components</p>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="star">Star Rating</div>
+    <div class="tab" data-tab="thumbs">Thumbs Feedback</div>
+    <div class="tab" data-tab="text">Text Feedback</div>
+  </div>
+
+  <!-- Star Rating Storyboard -->
+  <div class="storyboard" id="star-storyboard">
+    <div class="controls">
+      <h3>Customize Star Rating</h3>
+      
+      <div class="control-group">
+        <label for="star-primary-color">Primary Color:</label>
+        <input type="color" id="star-primary-color" value="#007BFF">
+      </div>
+      
+      <div class="control-group">
+        <label for="star-secondary-color">Secondary Color:</label>
+        <input type="color" id="star-secondary-color" value="#6C757D">
+      </div>
+      
+      <div class="control-group">
+        <label for="star-font-family">Font Family:</label>
+        <select id="star-font-family">
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="Verdana, sans-serif">Verdana</option>
+          <option value="Helvetica, Arial, sans-serif" selected>Helvetica</option>
+          <option value="'Times New Roman', serif">Times New Roman</option>
+          <option value="Georgia, serif">Georgia</option>
+        </select>
+      </div>
+      
+      <button id="star-apply">Apply Changes</button>
+      <button id="star-reset">Reset to Default</button>
+    </div>
+    
+    <div class="preview">
+      <div class="preview-header">
+        <h3>Star Rating Preview</h3>
+        <p>Click 'Apply Changes' to update the widget with your customization.</p>
+      </div>
+      
+      <div class="preview-container" id="star-preview">
+        <!-- Widget will be rendered here -->
+      </div>
+      
+      <div class="code-snippet" id="star-code">
+        // Code will be generated here
+      </div>
+    </div>
+  </div>
+  
+  <!-- Thumbs Feedback Storyboard -->
+  <div class="storyboard" id="thumbs-storyboard" style="display: none;">
+    <div class="controls">
+      <h3>Customize Thumbs Feedback</h3>
+      
+      <div class="control-group">
+        <label for="thumbs-primary-color">Primary Color:</label>
+        <input type="color" id="thumbs-primary-color" value="#28A745">
+      </div>
+      
+      <div class="control-group">
+        <label for="thumbs-secondary-color">Secondary Color:</label>
+        <input type="color" id="thumbs-secondary-color" value="#EEEEEE">
+      </div>
+      
+      <div class="control-group">
+        <label for="thumbs-font-family">Font Family:</label>
+        <select id="thumbs-font-family">
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="Verdana, sans-serif" selected>Verdana</option>
+          <option value="Helvetica, Arial, sans-serif">Helvetica</option>
+          <option value="'Times New Roman', serif">Times New Roman</option>
+          <option value="Georgia, serif">Georgia</option>
+        </select>
+      </div>
+      
+      <button id="thumbs-apply">Apply Changes</button>
+      <button id="thumbs-reset">Reset to Default</button>
+    </div>
+    
+    <div class="preview">
+      <div class="preview-header">
+        <h3>Thumbs Feedback Preview</h3>
+        <p>Click 'Apply Changes' to update the widget with your customization.</p>
+      </div>
+      
+      <div class="preview-container" id="thumbs-preview">
+        <!-- Widget will be rendered here -->
+      </div>
+      
+      <div class="code-snippet" id="thumbs-code">
+        // Code will be generated here
+      </div>
+    </div>
+  </div>
+  
+  <!-- Text Feedback Storyboard -->
+  <div class="storyboard" id="text-storyboard" style="display: none;">
+    <div class="controls">
+      <h3>Customize Text Feedback</h3>
+      
+      <div class="control-group">
+        <label for="text-primary-color">Primary Color:</label>
+        <input type="color" id="text-primary-color" value="#DC3545">
+      </div>
+      
+      <div class="control-group">
+        <label for="text-secondary-color">Secondary Color:</label>
+        <input type="color" id="text-secondary-color" value="#F8F9FA">
+      </div>
+      
+      <div class="control-group">
+        <label for="text-font-family">Font Family:</label>
+        <select id="text-font-family">
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="Verdana, sans-serif">Verdana</option>
+          <option value="Helvetica, Arial, sans-serif">Helvetica</option>
+          <option value="'Times New Roman', serif">Times New Roman</option>
+          <option value="Georgia, serif" selected>Georgia</option>
+        </select>
+      </div>
+      
+      <button id="text-apply">Apply Changes</button>
+      <button id="text-reset">Reset to Default</button>
+    </div>
+    
+    <div class="preview">
+      <div class="preview-header">
+        <h3>Text Feedback Preview</h3>
+        <p>Click 'Apply Changes' to update the widget with your customization.</p>
+      </div>
+      
+      <div class="preview-container" id="text-preview">
+        <!-- Widget will be rendered here -->
+      </div>
+      
+      <div class="code-snippet" id="text-code">
+        // Code will be generated here
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 User Feedback Widget. MIT License.</p>
+  </footer>
+
+  <!-- Include the widget script -->
+  <script src="../dist/feedback-widget.min.js"></script>
+  
+  <script>
+    // Tab switching functionality
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Remove active class from all tabs
+        document.querySelectorAll('.tab').forEach(t => {
+          t.classList.remove('active');
+        });
+        
+        // Add active class to clicked tab
+        this.classList.add('active');
+        
+        // Hide all storyboards
+        document.querySelectorAll('.storyboard').forEach(board => {
+          board.style.display = 'none';
+        });
+        
+        // Show selected storyboard
+        const tabType = this.getAttribute('data-tab');
+        document.getElementById(`${tabType}-storyboard`).style.display = 'grid';
+      });
+    });
+    
+    // Star Rating Widget
+    const starDefaults = {
+      primaryColor: '#007BFF',
+      secondaryColor: '#6C757D',
+      fontFamily: 'Helvetica, Arial, sans-serif'
+    };
+    
+    let starWidget = null;
+    
+    document.getElementById('star-apply').addEventListener('click', function() {
+      const primaryColor = document.getElementById('star-primary-color').value;
+      const secondaryColor = document.getElementById('star-secondary-color').value;
+      const fontFamily = document.getElementById('star-font-family').value;
+      
+      // Clear any existing widget
+      const container = document.getElementById('star-preview');
+      clearContainer(container);
+      
+      // Create new widget with custom theme
+      starWidget = new FeedbackWidget({
+        type: 'star',
+        targetElement: container,
+        theme: {
+          primaryColor: primaryColor,
+          secondaryColor: secondaryColor,
+          fontFamily: fontFamily
+        },
+        onSubmit: function(data) {
+          console.log('Star feedback submitted:', data);
+          setTimeout(() => {
+            renderStarWidget(); // Re-render the widget after submission
+          }, 1500);
+        }
+      });
+      
+      starWidget.init();
+      
+      // Update code snippet
+      updateCodeSnippet('star', {
+        primaryColor: primaryColor,
+        secondaryColor: secondaryColor,
+        fontFamily: fontFamily
+      });
+    });
+    
+    document.getElementById('star-reset').addEventListener('click', function() {
+      document.getElementById('star-primary-color').value = starDefaults.primaryColor;
+      document.getElementById('star-secondary-color').value = starDefaults.secondaryColor;
+      document.getElementById('star-font-family').value = starDefaults.fontFamily;
+      
+      renderStarWidget();
+    });
+    
+    // Thumbs Feedback Widget
+    const thumbsDefaults = {
+      primaryColor: '#28A745',
+      secondaryColor: '#EEEEEE',
+      fontFamily: 'Verdana, sans-serif'
+    };
+    
+    let thumbsWidget = null;
+    
+    document.getElementById('thumbs-apply').addEventListener('click', function() {
+      const primaryColor = document.getElementById('thumbs-primary-color').value;
+      const secondaryColor = document.getElementById('thumbs-secondary-color').value;
+      const fontFamily = document.getElementById('thumbs-font-family').value;
+      
+      // Clear any existing widget
+      const container = document.getElementById('thumbs-preview');
+      clearContainer(container);
+      
+      // Create new widget with custom theme
+      thumbsWidget = new FeedbackWidget({
+        type: 'thumbs',
+        targetElement: container,
+        theme: {
+          primaryColor: primaryColor,
+          secondaryColor: secondaryColor,
+          fontFamily: fontFamily
+        },
+        onSubmit: function(data) {
+          console.log('Thumbs feedback submitted:', data);
+          setTimeout(() => {
+            renderThumbsWidget(); // Re-render the widget after submission
+          }, 1500);
+        }
+      });
+      
+      thumbsWidget.init();
+      
+      // Update code snippet
+      updateCodeSnippet('thumbs', {
+        primaryColor: primaryColor,
+        secondaryColor: secondaryColor,
+        fontFamily: fontFamily
+      });
+    });
+    
+    document.getElementById('thumbs-reset').addEventListener('click', function() {
+      document.getElementById('thumbs-primary-color').value = thumbsDefaults.primaryColor;
+      document.getElementById('thumbs-secondary-color').value = thumbsDefaults.secondaryColor;
+      document.getElementById('thumbs-font-family').value = thumbsDefaults.fontFamily;
+      
+      renderThumbsWidget();
+    });
+    
+    // Text Feedback Widget
+    const textDefaults = {
+      primaryColor: '#DC3545',
+      secondaryColor: '#F8F9FA',
+      fontFamily: 'Georgia, serif'
+    };
+    
+    let textWidget = null;
+    
+    document.getElementById('text-apply').addEventListener('click', function() {
+      const primaryColor = document.getElementById('text-primary-color').value;
+      const secondaryColor = document.getElementById('text-secondary-color').value;
+      const fontFamily = document.getElementById('text-font-family').value;
+      
+      // Clear any existing widget
+      const container = document.getElementById('text-preview');
+      clearContainer(container);
+      
+      // Create new widget with custom theme
+      textWidget = new FeedbackWidget({
+        type: 'text',
+        targetElement: container,
+        theme: {
+          primaryColor: primaryColor,
+          secondaryColor: secondaryColor,
+          fontFamily: fontFamily
+        },
+        onSubmit: function(data) {
+          console.log('Text feedback submitted:', data);
+          setTimeout(() => {
+            renderTextWidget(); // Re-render the widget after submission
+          }, 1500);
+        }
+      });
+      
+      textWidget.init();
+      
+      // Update code snippet
+      updateCodeSnippet('text', {
+        primaryColor: primaryColor,
+        secondaryColor: secondaryColor,
+        fontFamily: fontFamily
+      });
+    });
+    
+    document.getElementById('text-reset').addEventListener('click', function() {
+      document.getElementById('text-primary-color').value = textDefaults.primaryColor;
+      document.getElementById('text-secondary-color').value = textDefaults.secondaryColor;
+      document.getElementById('text-font-family').value = textDefaults.fontFamily;
+      
+      renderTextWidget();
+    });
+    
+    // Helper Functions
+    function clearContainer(container) {
+      // Remove any existing feedback widget in the container
+      const existingWidget = container.querySelector('.feedback-widget');
+      if (existingWidget) {
+        container.removeChild(existingWidget);
+      }
+    }
+    
+    function updateCodeSnippet(type, theme) {
+      const codeSnippet = `
+const feedbackWidget = new FeedbackWidget({
+  type: '${type}',
+  targetElement: document.getElementById('container-id'),
+  theme: {
+    primaryColor: '${theme.primaryColor}',
+    secondaryColor: '${theme.secondaryColor}',
+    fontFamily: '${theme.fontFamily}'
+  },
+  onSubmit: function(data) {
+    console.log('Feedback submitted:', data);
+    // Send to your server, etc.
+  }
+});
+
+feedbackWidget.init();`;
+      
+      document.getElementById(`${type}-code`).textContent = codeSnippet;
+    }
+    
+    function renderStarWidget() {
+      // Apply the button click to render with current values
+      document.getElementById('star-apply').click();
+    }
+    
+    function renderThumbsWidget() {
+      // Apply the button click to render with current values
+      document.getElementById('thumbs-apply').click();
+    }
+    
+    function renderTextWidget() {
+      // Apply the button click to render with current values
+      document.getElementById('text-apply').click();
+    }
+    
+    // Initialize all widgets on page load
+    window.addEventListener('DOMContentLoaded', function() {
+      renderStarWidget();
+      renderThumbsWidget();
+      renderTextWidget();
+    });
+  </script>
+</body>
+</html>

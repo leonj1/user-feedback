@@ -111,6 +111,23 @@ The feedback data passed to the `onSubmit` callback has the following format:
 
 Check out the `/examples` directory for working demonstrations of all feedback types.
 
+### Storyboard
+
+We've included a custom storyboard interface to help you test and visualize different widget configurations:
+
+```bash
+# Open the storyboard in your browser
+open examples/storyboard.html
+```
+
+The storyboard provides:
+- Interactive controls to customize each widget's appearance
+- Live previews of all three feedback types
+- Generated code snippets based on your customizations
+- A tab-based interface to switch between different widget types
+
+This makes it easy to experiment with different themes and configurations before implementing them in your project.
+
 ## Browser Compatibility
 
 - Chrome (latest)
