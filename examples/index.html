@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Feedback Widget Examples</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>User Feedback Widget Examples</h1>
+    <p>This page demonstrates different ways to integrate and use the feedback widget.</p>
+  </header>
+
+  <main>
+    <section class="example">
+      <h2>Star Rating Feedback</h2>
+      <div class="demo-container" id="star-container">
+        <button id="star-button">Show Star Rating Widget</button>
+      </div>
+      <div class="code-sample">
+        <pre><code>
+const feedbackWidget = new FeedbackWidget({
+  type: 'star',
+  targetElement: document.getElementById('star-container'),
+  theme: {
+    primaryColor: '#007BFF',
+    secondaryColor: '#6C757D',
+    fontFamily: 'Arial, sans-serif'
+  },
+  onSubmit: function(data) {
+    console.log('Feedback submitted:', data);
+  }
+});
+feedbackWidget.init();
+        </code></pre>
+      </div>
+    </section>
+
+    <section class="example">
+      <h2>Thumbs Feedback</h2>
+      <div class="demo-container" id="thumbs-container">
+        <button id="thumbs-button">Show Thumbs Widget</button>
+      </div>
+      <div class="code-sample">
+        <pre><code>
+const feedbackWidget = new FeedbackWidget({
+  type: 'thumbs',
+  targetElement: document.getElementById('thumbs-container'),
+  theme: {
+    primaryColor: '#28A745',
+    secondaryColor: '#EEEEEE',
+    fontFamily: 'Verdana, sans-serif'
+  },
+  onSubmit: function(data) {
+    console.log('Feedback submitted:', data);
+  }
+});
+feedbackWidget.init();
+        </code></pre>
+      </div>
+    </section>
+
+    <section class="example">
+      <h2>Text Feedback</h2>
+      <div class="demo-container" id="text-container">
+        <button id="text-button">Show Text Feedback Widget</button>
+      </div>
+      <div class="code-sample">
+        <pre><code>
+const feedbackWidget = new FeedbackWidget({
+  type: 'text',
+  targetElement: document.getElementById('text-container'),
+  theme: {
+    primaryColor: '#DC3545',
+    secondaryColor: '#F8F9FA',
+    fontFamily: 'Roboto, sans-serif'
+  },
+  onSubmit: function(data) {
+    console.log('Feedback submitted:', data);
+  }
+});
+feedbackWidget.init();
+        </code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 User Feedback Widget. MIT License.</p>
+  </footer>
+
+  <!-- Include the widget script -->
+  <script src="../dist/feedback-widget.min.js"></script>
+  
+  <!-- Initialize examples -->
+  <script>
+    document.getElementById('star-button').addEventListener('click', function() {
+      const container = document.getElementById('star-container');
+      // Clear any existing widgets
+      clearExistingWidgets(container);
+      
+      const feedbackWidget = new FeedbackWidget({
+        type: 'star',
+        targetElement: container,
+        theme: {
+          primaryColor: '#007BFF',
+          secondaryColor: '#6C757D',
+          fontFamily: 'Arial, sans-serif'
+        },
+        onSubmit: function(data) {
+          console.log('Star feedback submitted:', data);
+        }
+      });
+      feedbackWidget.init();
+    });
+
+    document.getElementById('thumbs-button').addEventListener('click', function() {
+      const container = document.getElementById('thumbs-container');
+      // Clear any existing widgets
+      clearExistingWidgets(container);
+      
+      const feedbackWidget = new FeedbackWidget({
+        type: 'thumbs',
+        targetElement: container,
+        theme: {
+          primaryColor: '#28A745',
+          secondaryColor: '#EEEEEE',
+          fontFamily: 'Verdana, sans-serif'
+        },
+        onSubmit: function(data) {
+          console.log('Thumbs feedback submitted:', data);
+        }
+      });
+      feedbackWidget.init();
+    });
+
+    document.getElementById('text-button').addEventListener('click', function() {
+      const container = document.getElementById('text-container');
+      // Clear any existing widgets
+      clearExistingWidgets(container);
+      
+      const feedbackWidget = new FeedbackWidget({
+        type: 'text',
+        targetElement: container,
+        theme: {
+          primaryColor: '#DC3545',
+          secondaryColor: '#F8F9FA',
+          fontFamily: 'Roboto, sans-serif'
+        },
+        onSubmit: function(data) {
+          console.log('Text feedback submitted:', data);
+        }
+      });
+      feedbackWidget.init();
+    });
+
+    function clearExistingWidgets(container) {
+      // Remove any existing feedback widget in the container
+      const existingWidget = container.querySelector('.feedback-widget');
+      if (existingWidget) {
+        container.removeChild(existingWidget);
+      }
+    }
+  </script>
+</body>
+</html>
