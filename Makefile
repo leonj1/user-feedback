@@ -1,7 +1,7 @@
 # Makefile for feedback-widget
 
 # Default configuration (can be overridden)
-PORT ?= 8080
+PORT ?= 8090
 CONTAINER_NAME = feedback-widget-storyboard
 IMAGE_NAME = feedback-widget-storyboard
 # Default to not using a volume mount
